@@ -126,10 +126,10 @@ export const reverseGeocodeAddress = async ({ placeIndex, addressData, region, p
       responseData.push(...positionalData);
     }
 
-    return;
+    return responseData;
   } catch (err) {
     cloudLogs("HANDLER-ERROR: [reverseGeocodeAddress]", err);
     
-    return;
+    return null;
   }
 }
