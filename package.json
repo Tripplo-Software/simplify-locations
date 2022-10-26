@@ -1,0 +1,30 @@
+{
+  "name": "@tripplosoftware/simplify-locations",
+  "version": "1.0.0",
+  "description": "Utility functions for simplifying AWS Location Service",
+  "main": "dist/index.js",
+  "types": "dist/utils/types/index.d.ts",
+  "repository": "tripplo.co",
+  "author": "brandon.tripplo",
+  "license": "MIT",
+  "scripts": {
+    "local-cli": "npx ts-node ./src/index.ts",
+    "local-build": "npx tsc",
+    "lint": "npx eslint .",
+    "husky-prep": "npx husky install",
+    "husky-pre-push": "npm lint && npm local-build"
+  },
+  "dependencies": {
+    "@tsconfig/node18": "^1.0.1",
+    "@types/node": "^18.11.3",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "eslint": "^8.25.0",
+    "husky": "^8.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4",
+    "@aws-sdk/client-location": "^3.193.0",
+    "@aws-sdk/credential-providers": "^3.193.0"
+  },
+  "devDependencies": {}
+}
