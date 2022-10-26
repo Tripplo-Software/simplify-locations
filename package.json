@@ -4,7 +4,7 @@
   "description": "Utility functions for simplifying AWS Location Service",
   "main": "dist/index.js",
   "types": "dist/utils/types/index.d.ts",
-  "repository": "tripplo.co",
+  "repository": "https://github.com/Tripplo-Software/simplify-locations",
   "author": "brandon.tripplo",
   "license": "MIT",
   "scripts": {
