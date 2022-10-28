@@ -24,7 +24,7 @@ This package serves as a basic abstraction utility library for [AWS Location-Ser
 
 # Usage Example
 
-A simple serverless REST-API request handler. Where an address string is passed to the handler and geocoded data is returned for the supplied addres.
+A simple serverless REST-API request handler. Where an address string is passed to the handler and geocoded data is returned for the supplied address.
 
 <img src="https://res.cloudinary.com/wemakeart/image/upload/v1666931687/tripplo/location-service/geocode-address-npm-example_q4eish.png" width="60%" height="60%" alt="usage-example"/>
 
