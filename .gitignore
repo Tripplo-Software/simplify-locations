@@ -5,6 +5,7 @@ node_modules
 
 # testing
 coverage
+pack
 
 # production
 dist

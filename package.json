@@ -1,6 +1,6 @@
 {
   "name": "@tripplosoftware/simplify-locations",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utility functions for simplifying AWS Location Service",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,6 +10,8 @@
   "scripts": {
     "local-cli": "npx ts-node ./src/index.ts",
     "local-build": "npx tsc",
+    "local-pack": "npm pack --pack-destination ./pack/",
+    "local-publish": "npm publish --access public",
     "lint": "npx eslint .",
     "husky-prep": "npx husky install",
     "husky-pre-push": "npm lint && npm local-build"
