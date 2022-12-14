@@ -15,6 +15,9 @@ const locationContext = (userRegion?: string, userProfile?: string) => {
   });
 }
 
+let positionSearchAttempt = 1;
+
+// SearchPlaceIndexForPosition | Rate Limit: 50 per second
 export const asyncSearchForPosition = ({ placeIndex, position, id, region, profile }: SearchForPositionInput) => {
   return new Promise<SearchForPositionResultExtended | null>((resolve) => {
     locationContext(region, profile).searchPlaceIndexForPosition({
@@ -25,18 +28,17 @@ export const asyncSearchForPosition = ({ placeIndex, position, id, region, profi
         // This exception does not necessarily mean failure
         if (err.name === "TooManyRequestsException") {
           const limit = 5;
-          let attempt = 1;
 
-          while (attempt < limit) {
-            await backoff(attempt);
+          while (positionSearchAttempt < limit) {
+            positionSearchAttempt += 1;
+
+            await backoff(positionSearchAttempt);
 
             const retryResult = await asyncSearchForPosition({ placeIndex, position, id });
 
             if (retryResult !== null) {
               return resolve(retryResult);
             }
-
-            attempt++;
           }
         }
 
@@ -68,6 +70,9 @@ export const asyncSearchForPosition = ({ placeIndex, position, id, region, profi
   });
 }
 
+let textSearchAttempt = 1;
+
+// SearchPlaceIndexForText  | Rate Limit: 50 per second
 export const asyncSearchForText = ({ placeIndex, address, id, region, profile }: SearchForTextInput) => {
   const requestPayload: SearchPlaceIndexForTextRequest = {
     IndexName: placeIndex,
@@ -82,18 +87,17 @@ export const asyncSearchForText = ({ placeIndex, address, id, region, profile }:
         // This exception does not necessarily mean failure
         if (err.name === "TooManyRequestsException") {
           const limit = 5;
-          let attempt = 1;
 
-          while (attempt < limit) {
-            await backoff(attempt);
+          while (textSearchAttempt < limit) {
+            textSearchAttempt += 1;
+
+            await backoff(textSearchAttempt);
 
             const retryResult = await asyncSearchForText({ placeIndex, address, id });
 
             if (retryResult !== null) {
               return resolve(retryResult);
             }
-
-            attempt++;
           }
         }
 
@@ -125,6 +129,9 @@ export const asyncSearchForText = ({ placeIndex, address, id, region, profile }:
   });
 }
 
+let calculateRouteAttempt = 1;
+
+// CalculateRoute | Rate Limit: 10 per second
 export const asyncCalculateRoute = ({ requestParams, region, profile }: ICalculcateRouteParams) => {
   return new Promise<CalculateRouteSummary | null>((resolve) => {
     locationContext(region, profile).calculateRoute(requestParams, async (err, data) => {
@@ -132,10 +139,11 @@ export const asyncCalculateRoute = ({ requestParams, region, profile }: ICalculc
         // This exception does not necessarily mean failure
         if (err.name === "TooManyRequestsException") {
           const limit = 5;
-          let attempt = 1;
 
-          while (attempt < limit) {
-            await backoff(attempt);
+          while (calculateRouteAttempt < limit) {
+            calculateRouteAttempt += 1;
+
+            await backoff(calculateRouteAttempt);
 
             const retryResult = await asyncCalculateRoute({
               requestParams: requestParams,
@@ -146,8 +154,6 @@ export const asyncCalculateRoute = ({ requestParams, region, profile }: ICalculc
             if (retryResult !== null) {
               return resolve(retryResult);
             }
-
-            attempt++;
           }
         }
 
